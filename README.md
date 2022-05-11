@@ -3,7 +3,16 @@
 ## System info
 
 #### CPU
+<<<<<<< Updated upstream
 1. Какими способами можно узнать информацию о CPU? 
+
+=======
+1. Какими способами можно узнать информацию о CPU?
+
+- `lshw` `lscpu` `cat /proc/cpuinfo`
+- [Bash-скрипт](#cpu_info.sh), который выводит 
+=======
+>>>>>>> Stashed changes
 - `lshw` `lscpu` `cat /proc/cpuinfo`
 - [Bash-скрипт](https://github.com/a1k0u/os/blob/main/cpu-info.sh), 
 который выводит информацию о процессоре (_название, архитектуру,
