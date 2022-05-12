@@ -5,7 +5,7 @@
 #### CPU
 1. Какими способами можно узнать информацию о CPU? 
 
-- `lshw` `lscpu` `cat /proc/cpuinfo`
+- `lshw` `lscpu` `cat /proc/cpuinfo` `sudo dmidecode --type processor`
 - [Bash-скрипт](https://github.com/a1k0u/os/blob/main/cpu-info.sh), 
 который выводит информацию о процессоре (_название, архитектуру,
 число ядер, частоту работы и размер кэш-памяти_) в txt-файл.
@@ -43,3 +43,29 @@
 `./swap-change.sh 1024M`. Скрипт также отлавливает
 неверные входные данные (_1023Md, 3293, 
 sdd1023.33M, 1g, g, ..._).
+
+
+4. С помощью `sudo lshw -class memory` и 
+`sudo dmidecode -t memory` можно узнать всю информацию
+о RAM, в том числе: название (_product_, _Part Number_), 
+производителя (_vendor_, _Manufacturer_), серийный номер
+(_serial_, _Serial_), формат (_type_), объем (_size_, _Size_)
+и частоту работы (_clock_).
+
+#### Disk Usage
+```bash
+ df -h --total 
+    | grep "total" 
+    | grep -E -o "[0-9]+[BKMGTP]" 
+    | echo "Available disk storage $(tail -1)"
+ ```
+
+```shell
+df -h /home 
+    |  grep -E -o "[0-9]+[BKMGTP]" 
+    | tail -2 
+    | echo "/home used $(head -1) of disk storage"
+```
+
+
+7. `top`
