@@ -73,6 +73,11 @@ df -h /home
     | echo "/home used $(head -1) of disk storage"
 ```
 
-
 7. Команда `top` предназначена для вывода
 списка процессов компьютера.
+
+#### GPU
+8. Вывести информацию о GPU можно, например:
+утилитой `glxinfo`, предварительно установив её
+`sudo apt install mesa-utils`, а затем
+`glxinfo -B | grep -A5 "Device:"`.
