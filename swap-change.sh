@@ -1,5 +1,16 @@
 #!/bin/bash
 
+<< 'ScriptDescription'
+  This script changes size of swapfile.
+  Firstly, change mod of script by
+  `chmod u+x ./swap-change.sh`,
+  then start programme with necessary
+  argument (size of swap), for example:
+  `./swap-change.sh 4G`. Valid arg is
+  [Integer or float number][Units of size]
+  (4G, 5434M, 300K, ...).
+ScriptDescription
+
 new_swap_size="$1"
 correct_input=$(echo "$new_swap_size" | grep -E -o "^[0-9]+[\.]?[0-9]*[BKMGTP]+")
 
