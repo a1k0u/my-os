@@ -1,5 +1,12 @@
 #!/bin/bash
 
+<< IpDoc
+  Output in console all necessary information
+  about network devices (name,
+  local and outside ips, mac address).
+IpDoc
+
+
 network_devices=$(ip addr | grep -E -c "[0-9]+: ")
 for ((device = 1; device <= $network_devices; device++))
 do
