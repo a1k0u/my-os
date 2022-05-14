@@ -91,7 +91,7 @@ df -h /home
 
 10. В целом MAC-адрес можно получить различными способами, например:
 через `ifconfig`, `ip`, но для удобства скрипт, указанный в 
-[(9)](https://github.com/a1k0u/os/blob/main/ip-info.sh) пункте
+[(9)](./ip-info.sh) пункте
 решает поставленную задачу.
 
 
@@ -147,7 +147,8 @@ alias ....=`cd ../../..`
 Делаем левый клик мышью на свободном месте консоли,
 затем переходим в `Preferences`. Откроется окно, в котором
 можно сделать различные изменения (_шрифт, цвет, ..._) в консоли.
-> <div style="display: flex; justify-content: center; width: 100%; height: 300px;"><img src="./img/preferences.png" alt="console"><img src="./img/preferences_1.png" alt="console settings"></div>
+> ![](./img/pref.png)
+> ![](./img/pref_1.png)
 
 ## Grep
 
