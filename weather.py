@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 Output all the necessary information about the current weather
 in the region where your IP address is locate.
@@ -6,7 +8,6 @@ in the region where your IP address is locate.
 import os
 import json
 from typing import List, Dict
-from sys import argv
 
 import requests
 from lxml import etree
@@ -59,22 +60,14 @@ def get_weather(
     return json.loads(weather_information.text)
 
 
-def output_weather(api: str, file) -> None:
+def output_weather(api: str) -> None:
     """
     Output all the necessary information about the current weather
     in the region where your IP address is located to
-    standard output or a file that is entered as an optional
-    argument.
-
-    >> python3 weather.py filename.txt
-
-    In general, it seems like that:
-    >> python3 [programme name] [file for output]
-
+    standard output.
 
     :param api: api key from OpenWeather
-    :param file: optional argument for output
-    :return: output information in file or stdout
+    :return: output information in stdout
     """
 
     info: Dict = get_weather(api, get_city())
@@ -86,27 +79,18 @@ def output_weather(api: str, file) -> None:
     It is {info['weather'][0]['description']} outside now, 
     the wind is about {info['wind']['speed']} m/s, humidity is {info['main']['humidity']}%.\n"""
 
-    if file is not None:
-        with open(file, "w", encoding="utf-8") as writer:
-            writer.write(message)
-    else:
-        print(message)
+    print(message)
 
 
 def main() -> None:
     """
-    Gets argv from input and take API key form environment variables list.
+    Takes API key form environment variables list.
     Starts output for weather.
 
-    >> python3 [programme name].py [arg1] [arg2] ... [argN]
     :return: None
     """
 
-    output_file = None
-    if len(argv) >= 2:
-        output_file = argv[1]
-
-    output_weather(os.environ.get("API_OPENWEATHER"), output_file)
+    output_weather(os.environ.get("API_OPENWEATHER"))
 
 
 if __name__ == "__main__":
