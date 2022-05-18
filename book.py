@@ -4,7 +4,7 @@
 Script info
 """
 
-from typing import Callable, DefaultDict
+from typing import Union, Callable, DefaultDict, Dict, FrozenSet
 from collections import defaultdict
 from sys import argv
 
@@ -48,8 +48,7 @@ def get_user(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
     :return:
     """
 
-    if not kwargs["name"]:
-        ...
+    ...
 
     cursor.execute("SELECT * FROM users WHERE name = :name", kwargs)
     print(from_db_cursor(cursor))
@@ -69,6 +68,19 @@ def get_all(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
 
 
 @database
+def delete_user(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
+    """
+
+    :param kwargs:
+    :param cursor:
+    :return:
+    """
+
+    condition = " AND ".join([f"{key}='{value}'" for key, value in kwargs.items()])
+    cursor.execute(f"DELETE FROM users WHERE {condition}")
+
+
+@database
 def insert_user(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
     """
 
@@ -77,17 +89,52 @@ def insert_user(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
     :return:
     """
 
-    if not kwargs["name"]:
-        ...
-
     cursor.execute(
-        "INSERT INTO users VALUES (NULL, :name, :surname, :phone, :email, :information)",
+        "INSERT INTO users VALUES (NULL, :name, :surname, :phone, :email, :info)",
         kwargs,
     )
 
 
-# insert_user(name="John", phone="+7900")
-# insert_user(name="Bobi", surname="Huck")
-# insert_user(name="Rick", surname="Morty", phone="+7900", email="Ki@ma.e", information="funny")
-# get_all()
-# get_user(name="Rick")
+def main() -> None:
+    """
+
+    :return:
+    """
+
+    functions: Dict[str, Callable] = {
+        "-i": insert_user,
+        "-g": get_user,
+        "-s": get_all,
+        "-d": delete_user,
+    }
+
+    fields: FrozenSet[str] = frozenset(
+        ("-name", "-surname", "-phone", "-email", "-info")
+    )
+
+    flag: bool = False
+    parameters: Dict[str, str] = {}
+    function: Union[None, Callable] = None
+
+    for i in range(1, len(argv)):
+        if flag:
+            flag = False
+            parameters[argv[i - 1][1:]] = argv[i]
+        elif function is None and functions.get(argv[i], None) is not None:
+            function = functions[argv[i]]
+        elif argv[i] in fields:
+            flag = True
+        else:
+            exit(f"book: invalid input `{argv[i]}`")
+
+    if function is None:
+        function = get_all
+    elif function != get_all:
+        if parameters.get("name", None) is None:
+            exit("book: field `name` is empty")
+
+    function(**parameters)
+
+
+if __name__ == "__main__":
+    main()
