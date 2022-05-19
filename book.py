@@ -147,7 +147,7 @@ def main() -> None:
         -g : search for users in the table
 
     Fields:
-        - first name, -last name, - phone, -email, -information
+        -name, -surname, -phone, -email, -info
 
     - Flags before data is required.
     - If the data contains more than one word, enclose them in quotation marks.
