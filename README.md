@@ -469,9 +469,9 @@ python3 book.py -name John -phone +123456 -info "My favorite character"
 python3 book.py -d -name Alex -surname Kosenko
 ```
 
-- Поиск всех контактов по имени и телефону.
+- Поиск всех контактов по параметрам.
 ```shell
-python3 book.py -g -phone +77777 -email kooko123@mail.world
+python3 book.py -g -name Vova -info "My best friend"
 
 ---
 
@@ -512,6 +512,8 @@ python3 book.py -g -phone +77777 -email kooko123@mail.world
 
 
 54. Заархивируем все наши скрипты: `tar -cvf scripts.tar /home/scripts`.
+
+> Подтягивайте все зависимости `pip install -r requirements.txt`.
 
 ## Administration
 
