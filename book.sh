@@ -48,5 +48,6 @@ if [ "$1" == "-help" ]
 then
   echo "$info"
 else
-  /usr/bin/python3 book.py "$@"
+  path=$(echo "$0" | grep -P -o "\/.*\/")
+  cd "$path" && /usr/bin/python3 book.py "$@"
 fi
