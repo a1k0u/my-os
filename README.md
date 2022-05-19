@@ -449,20 +449,17 @@ export API_OPENWEATHER=27950c473536d6bb06394814058f4575
 
 ---
 
-+----+--------+-----------+--------------+-----------------+----------------------------------------------+
-| id |  name  |  surname  |    phone     |      email      |                 information                  |
-+----+--------+-----------+--------------+-----------------+----------------------------------------------+
-| 1  |  Alex  |  Kosenko  | +79005002020 | kosenko@hse.com |            My contact, for myself            |
-| 2  | Timur  |           | +8888112233  |                 |    Funny guy, I met him in a bar 13.05.22    |
-| 3  | Dmitry | Bombovich |              |   dima@mail.ru  |              My college at work              |
-| 5  | Ksenia |           | +3452343242  |                 | My girlfriend, the best person I've ever met |
-| 6  | Timur  |           | +8888112233  |                 |    Funny guy, I met him in a bar 13.05.22    |
-+----+--------+-----------+--------------+-----------------+----------------------------------------------+
++----+------+---------+-------+----------------+----------------+
+| id | name | surname | phone |     email      |      info      |
++----+------+---------+-------+----------------+----------------+
+| 1  | Alex | Kosenko |  +777 |                |       Me       |
+| 2  | Vova |  Ivanov |       | vov4ik@mail.ru | My best friend |
++----+------+---------+-------+----------------+----------------+
 ```
 
 - Создание нового контакта с именем Джон, указанным номером и дополнительной информацией.
 ```shell
-python3 book.py -name John -phone +123456 -information "My favorite character"
+python3 book.py -name John -phone +123456 -info "My favorite character"
 ```
 
 - Удаление всех пользователей с именем Alex и фамилией Kosenko.

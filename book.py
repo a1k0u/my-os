@@ -117,7 +117,7 @@ def insert_user(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
         VALUES 
           (
             NULL, :name, :surname, :phone, :email, 
-            :information
+            :info
           )
         """,
         kwargs,
@@ -132,7 +132,7 @@ def main() -> None:
     >> python3 book.py -s
 
     Enter a new user with the name "John", phone number "+123456" and extra information.
-    >> python3 book.py -name John -phone +123456 -information "My favorite character"
+    >> python3 book.py -name John -phone +123456 -info "My favorite character"
 
     Delete all users with the name "Alex" and the last name "Kosenko".
     >> python3 book.py -d -name Alex -surname Kosenko

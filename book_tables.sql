@@ -4,5 +4,5 @@ CREATE TABLE IF NOT EXISTS users (
     surname TEXT DEFAULT NULL,
     phone TEXT(100) DEFAULT NULL,
     email TEXT(100) DEFAULT NULL,
-    information TEXT DEFAULT NULL
+    info TEXT DEFAULT NULL
 );
