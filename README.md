@@ -461,7 +461,7 @@ export API_OPENWEATHER=27950c473536d6bb06394814058f4575
 
 - Создание нового контакта с именем Джон, указанным номером и дополнительной информацией.
 ```shell
-> python3 book.py -name John -phone +123456 -info "My favorite character"
+> python3 book.py -i -name John -phone +123456 -info "My favorite character"
 ```
 
 - Удаление всех пользователей с именем Alex и фамилией Kosenko.
