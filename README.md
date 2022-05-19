@@ -396,4 +396,51 @@ echo "hello, world"
 
 ## Administration
 
-55. 
+55. Создать нового пользователя можно с помощью команды
+`sudo useradd -m UserName`. В результате будет создать
+user с указанным именем без пароля и с именованной
+директорией в `/home/UserName`.
+
+- `sudo passwd UserName` - установить пароль пользователю. 
+    
+56. Посмотреть список существующих пользователей и групп
+можно в файлах `/etc/passwd` и `/etc/group` соответственно.
+
+- `sudo groupadd GroupName` - создание новой группы.
+- `sudo usermod -aG GroupName UserName` - добавление пользователя в группу.
+- `sudo deluser UserName sudo` - удаление пользователя из группы `sudo`.
+- `id UserName` - посмотреть результат нашей работы.
+
+57. Установив флаг `-N` в `useradd`, мы не добавляем нового
+user ни в какие группы.
+
+
+58. При создании пользователя, когда формируется его
+директория, берутся файлы-скелеты из папки `/etc/skel`.
+Мы можем отредактировать `.bashrc`, добавив
+в переменную окружения все скрипты, которые мы ранее
+написали. Теперь мы имеем доступ к ним из любой папки. 
+
+```shell
+export PATH=/home/scripts:$PATH'
+```
+
+59. Продолжая модифицировать `/etc/skel`, сделаем автоматическое
+создание виртуального окружения Python для каждого нового
+пользователя.
+
+```shell
+> sudo nano /etc/skel/.bashrc
+
+---
+
+if ! [ -e /home/"$LOGNAME"/"$LOGNAME"  ]; then
+   cd /home/"$LOGNAME" && python3 -m venv "$LOGNAME"
+fi
+
+alias activate='source /home/$LOGNAME/$LOGNAME/bin/activate'
+```
+
+> Для большего удобства при создании пользователя указывайте
+> оболочку `bash`: `sudo useradd -m Name -s /bin/bash`, иначе
+> `chsh -s /bin/bash`.
