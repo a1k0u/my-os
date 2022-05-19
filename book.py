@@ -184,9 +184,8 @@ def main() -> None:
 
     if function is None:
         function = get_all
-    elif function != get_all:
-        if parameters.get("name", None) is None:
-            exit("book: field `name` is empty")
+    elif function != get_all and not parameters:
+        exit("book: fields are empty")
 
     function(**parameters)
 
