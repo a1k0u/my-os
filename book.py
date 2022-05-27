@@ -13,15 +13,15 @@ import sqlite3 as sql
 from prettytable import from_db_cursor
 
 
-def create_condition(kwargs: DefaultDict) -> str:
+def create_condition(parameters: DefaultDict) -> str:
     """
     Creates an SQL condition from Dict.
 
-    :param kwargs: a dict with keys and values.
+    :param parameters: a dict with keys and values.
     :return: the result of concatenating conditions.
     """
 
-    return " AND ".join([f"{key}='{value}'" for key, value in kwargs.items()])
+    return " AND ".join([f"{key}='{value}'" for key, value in parameters.items()])
 
 
 def database(command: Callable) -> Callable:
@@ -36,20 +36,20 @@ def database(command: Callable) -> Callable:
     :return: wrapper function with automate process.
     """
 
-    def wrapper(**kwargs) -> None:
+    def wrapper(parameters: Dict) -> None:
         with sql.connect("book.sqlite") as connection:
-            command(defaultdict(str, kwargs), cursor=connection.cursor())
+            command(connection.cursor(), defaultdict(str, parameters))
 
     return wrapper
 
 
 @database
-def create_tables(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
+def create_tables(cursor: sql.Cursor, parameters: DefaultDict) -> None:
     """
     Executes an SQL script to create tables.
 
-    :param kwargs: unused in this func, but necessary for polymorphism.
     :param cursor: SQL cursor.
+    :param parameters:
     :return: None
     """
 
@@ -58,27 +58,27 @@ def create_tables(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
 
 
 @database
-def get_user(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
+def get_user(cursor: sql.Cursor, parameters: DefaultDict) -> None:
     """
     Finds all users in an SQL table
     with exact properties.
 
-    :param kwargs: users parameters.
+    :param parameters: users parameters.
     :param cursor: SQL cursor.
     :return: output table in stdout.
     """
 
-    cursor.execute(f"SELECT * FROM users WHERE {create_condition(kwargs)}")
+    cursor.execute(f"SELECT * FROM users WHERE {create_condition(parameters)}")
     print(from_db_cursor(cursor))
 
 
 @database
-def get_all(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
+def get_all(cursor: sql.Cursor, parameters: DefaultDict) -> None:
     """
     Outputs all table in stdout.
 
-    :param kwargs: unused in this func, but necessary for polymorphism.
     :param cursor: SQL cursor.
+    :param parameters:
     :return: None
     """
 
@@ -87,26 +87,26 @@ def get_all(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
 
 
 @database
-def delete_user(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
+def delete_user(cursor: sql.Cursor, parameters: DefaultDict) -> None:
     """
     Finds all users in a table
     with properties and deletes them.
 
-    :param kwargs: users parameters.
+    :param parameters: users parameters.
     :param cursor: SQL cursor.
     :return: None
     """
 
-    cursor.execute(f"DELETE FROM users WHERE {create_condition(kwargs)}")
+    cursor.execute(f"DELETE FROM users WHERE {create_condition(parameters)}")
 
 
 @database
-def insert_user(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
+def insert_user(cursor: sql.Cursor, parameters: DefaultDict) -> None:
     """
     Insert user in a table. Fill fields (keys)
     with values (values) from a dict.
 
-    :param kwargs: new user parameters.
+    :param parameters: new user parameters.
     :param cursor: SQL cursor.
     :return: None
     """
@@ -120,7 +120,7 @@ def insert_user(kwargs: DefaultDict, cursor: sql.Cursor = None) -> None:
             :info
           )
         """,
-        kwargs,
+        parameters,
     )
 
 
@@ -187,7 +187,7 @@ def main() -> None:
     elif function != get_all and not parameters:
         exit("book: fields are empty")
 
-    function(**parameters)
+    function(parameters)
 
 
 if __name__ == "__main__":
