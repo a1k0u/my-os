@@ -1,5 +1,11 @@
 # Операционные системы
 
+[![type](https://img.shields.io/badge/laboratory%20work-os-21)]()
+[![python](https://img.shields.io/badge/python-%3E%3D3.8-blue)]()
+[![platform](https://img.shields.io/badge/platform-linux-lightgrey)]()
+[![dependencies](https://img.shields.io/badge/dependencies-requirements.txt-important)](requirements.txt)
+[![dependencies](https://img.shields.io/badge/open-assignments-blueviolet)](https://docs.google.com/document/d/1q8FmNPGTf_-FJ7Olo0Qw9HKRtk_yg73o/edit)
+
 ## System info
 
 #### CPU
@@ -471,7 +477,7 @@ user@:~$
 адресу местоположение, по которому выводит краткую сводку
 текущей погоды.
 
-- Данные о местоположение были вытащены с [Яндекс](yandex.ru/internet),
+- Данные о местоположение были вытащены с [Яндекса](yandex.ru/internet),
 а погода по API с [OpenWeather](https://openweathermap.org).
 
 - Для получения API ключа требуется регистрация. Но
