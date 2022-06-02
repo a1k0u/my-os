@@ -14,12 +14,7 @@ from lxml import etree
 
 
 def get_city() -> str:
-    """
-    Gets name of your city by IP address
-    from yandex.ru/internet.
-
-    :return: name of city
-    """
+    """Gets name of your city by IP address from yandex.ru/internet."""
 
     information: requests.Response = requests.get("https://yandex.ru/internet")
 
@@ -36,14 +31,6 @@ def get_weather(
     """
     Gets a json file that turns into a Dict
     with current weather information from openweather.
-
-    :param api_key: api key from open weather for accessing information
-    :param city: place where will check the current weather
-    :param lang: output information in json will be in this language
-    :param units: in general, Celsius ("metric") is used for temperature
-    :return: current weather in Dict
-
-    For more information check API documentation OpenWeather.
     """
 
     parameters: Dict[str, str] = {
@@ -65,9 +52,6 @@ def output_weather(api: str) -> None:
     Output all the necessary information about the current weather
     in the region where your IP address is located to
     standard output.
-
-    :param api: api key from OpenWeather
-    :return: output information in stdout
     """
 
     info: Dict = get_weather(api, get_city())
@@ -83,12 +67,7 @@ def output_weather(api: str) -> None:
 
 
 def main() -> None:
-    """
-    Takes API key form environment variables list.
-    Starts output for weather.
-
-    :return: None
-    """
+    """Takes API key form environment variables list. Starts output for weather."""
 
     output_weather(os.environ.get("API_OPENWEATHER"))
 

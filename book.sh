@@ -22,7 +22,7 @@ info="""
     >> book -s
 
     Enter a new user with the name 'John', phone number '+123456' and extra information.
-    >> book -name John -phone +123456 -information 'My favorite character'
+    >> book -i -name John -phone +123456 -information 'My favorite character'
 
     Delete all users with the name 'Alex' and the last name 'Kosenko'.
     >> book -d -name Alex -surname Kosenko

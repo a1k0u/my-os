@@ -14,13 +14,7 @@ from prettytable import from_db_cursor
 
 
 def create_condition(parameters: DefaultDict) -> str:
-    """
-    Creates an SQL condition from Dict.
-
-    :param parameters: a dict with keys and values.
-    :return: the result of concatenating conditions.
-    """
-
+    """Creates an SQL condition from Dict."""
     return " AND ".join([f"{key}='{value}'" for key, value in parameters.items()])
 
 
@@ -45,72 +39,34 @@ def database(command: Callable) -> Callable:
 
 @database
 def create_tables(cursor: sql.Cursor, parameters: DefaultDict) -> None:
-    """
-    Executes an SQL script to create tables.
-
-    :param cursor: SQL cursor.
-    :param parameters:
-    :return: None
-    """
-
+    """Executes an SQL script to create tables."""
     with open("book_tables.sql", mode="r", encoding="utf-8") as table:
         cursor.executescript(table.read())
 
 
 @database
 def get_user(cursor: sql.Cursor, parameters: DefaultDict) -> None:
-    """
-    Finds all users in an SQL table
-    with exact properties.
-
-    :param parameters: users parameters.
-    :param cursor: SQL cursor.
-    :return: output table in stdout.
-    """
-
+    """Finds all users in an SQL table with exact properties."""
     cursor.execute(f"SELECT * FROM users WHERE {create_condition(parameters)}")
     print(from_db_cursor(cursor))
 
 
 @database
 def get_all(cursor: sql.Cursor, parameters: DefaultDict) -> None:
-    """
-    Outputs all table in stdout.
-
-    :param cursor: SQL cursor.
-    :param parameters:
-    :return: None
-    """
-
+    """Outputs all table in stdout."""
     cursor.execute("SELECT * FROM users")
     print(from_db_cursor(cursor))
 
 
 @database
 def delete_user(cursor: sql.Cursor, parameters: DefaultDict) -> None:
-    """
-    Finds all users in a table
-    with properties and deletes them.
-
-    :param parameters: users parameters.
-    :param cursor: SQL cursor.
-    :return: None
-    """
-
+    """Finds all users in a table with properties and deletes them."""
     cursor.execute(f"DELETE FROM users WHERE {create_condition(parameters)}")
 
 
 @database
 def insert_user(cursor: sql.Cursor, parameters: DefaultDict) -> None:
-    """
-    Insert user in a table. Fill fields (keys)
-    with values (values) from a dict.
-
-    :param parameters: new user parameters.
-    :param cursor: SQL cursor.
-    :return: None
-    """
-
+    """Insert user in a table. Fill fields (keys) with values (values) from a dict."""
     cursor.execute(
         """
         INSERT INTO users 
@@ -127,33 +83,7 @@ def insert_user(cursor: sql.Cursor, parameters: DefaultDict) -> None:
 def main() -> None:
     """
     The main function that processes the information entered into the script.
-
-    Shows all table data (~ `get_all`)
-    >> python3 book.py -s
-
-    Enter a new user with the name "John", phone number "+123456" and extra information.
-    >> python3 book.py -name John -phone +123456 -info "My favorite character"
-
-    Delete all users with the name "Alex" and the last name "Kosenko".
-    >> python3 book.py -d -name Alex -surname Kosenko
-
-    Search for a user by email and phone.
-    >> python3 book.py -g -phone +77777 -email kooko123@mail.world
-
-    Functions:
-        -i : insert into the table
-        -s : show table
-        -d : delete from the table
-        -g : search for users in the table
-
-    Fields:
-        -name, -surname, -phone, -email, -info
-
-    - Flags before data is required.
-    - If the data contains more than one word, enclose them in quotation marks.
-    - If the execute function is not mentioned, 'get_all' will run ( ~python3 book.py ).
-
-    :return: None
+    Check manual in book.sh.
     """
 
     functions: Dict[str, Callable] = {
