@@ -29,6 +29,7 @@ then
 fi
 
 objects=$(find "$dir" -name "$obj")
+echo "$objects"
 if [ ${#objects} -eq 0 ]; then
   echo "No objs with label=$obj in directory=$dir !"
 else
