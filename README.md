@@ -1,5 +1,3 @@
-# Операционные системы
-
 [![type](https://img.shields.io/badge/laboratory%20work-os-21)]()
 [![python](https://img.shields.io/badge/python-%3E%3D3.8-blue)]()
 [![platform](https://img.shields.io/badge/platform-linux-lightgrey)]()
