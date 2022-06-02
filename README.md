@@ -416,7 +416,30 @@ echo "hello, world"
 тип объекта и абсолютный путь.
 
 
-47. .
+47. [Bash-скрипт](permission.sh) с функцией, которая проверяет
+права доступа определенного пользователя к определенному файлу или
+директории. Далее приведен алгоритм и пример работы.
+
+- Собирает всю необходимую информацию.
+- Пользователь владелец?
+  - Да. Присваивает права владельца.
+  - Нет. Исследует права группы `others`.
+- Записывает доступ по группе.
+- Формирует вывод.
+
+```shell
+permission.sh someFile.txt a1k0u
+# root able to read, write, execute.
+
+permission.sh SuperSecretDirectory vasily
+# vasily doesn't have any permission.
+
+permission.sh File.py
+# petya able to execute.
+
+# Если не указать пользователя, 
+# то user=$LOGNAME.
+```
 
 
 48. Некоторым лабораторным работам, написанным на Си, можно найти применение
@@ -426,7 +449,7 @@ echo "hello, world"
 к нему доступ из любой точки системы.
 
 ```shell
-`sudo ln -s $(pwd)/terminal-calculator /usr/bin/`
+sudo ln -s $(pwd)/terminal-calculator /usr/bin/
 ```
 
 ```shell
